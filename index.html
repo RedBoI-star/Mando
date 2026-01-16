@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mando</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+  --panel: rgba(20,20,40,0.85);
+  --accent: #7aa2ff;
+  --text: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ================= SPACE BACKGROUND ================= */
+#space {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: black;
+  overflow: hidden;
+}
+
+.stars, .stars2, .stars3 {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  animation: moveStars linear infinite;
+}
+
+.stars {
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, white, transparent),
+    radial-gradient(1px 1px at 80% 70%, white, transparent),
+    radial-gradient(1px 1px at 50% 50%, white, transparent);
+  animation-duration: 120s;
+}
+
+.stars2 {
+  background-image:
+    radial-gradient(2px 2px at 10% 40%, #aaa, transparent),
+    radial-gradient(2px 2px at 60% 80%, #aaa, transparent);
+  animation-duration: 90s;
+}
+
+.stars3 {
+  background-image:
+    radial-gradient(3px 3px at 70% 20%, #888, transparent),
+    radial-gradient(3px 3px at 30% 60%, #888, transparent);
+  animation-duration: 60s;
+}
+
+@keyframes moveStars {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
+/* ================= NEBULA ================= */
+.nebula {
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(120,80,255,0.15), transparent 45%),
+    radial-gradient(circle at 70% 60%, rgba(255,80,120,0.12), transparent 50%),
+    radial-gradient(circle at 50% 20%, rgba(80,200,255,0.10), transparent 40%);
+  animation: nebulaMove 180s linear infinite;
+}
+
+@keyframes nebulaMove {
+  to { transform: translate(-5%, -10%); }
+}
+
+/* ================= PLANETS ================= */
+.planet {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.85;
+  animation: floatPlanet ease-in-out infinite;
+  pointer-events: none;
+  transition: transform 0.15s ease-out;
+}
+
+.planet-blue {
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle at 30% 30%, #9fd3ff, #1e4b8f);
+  top: 20%;
+  left: 10%;
+  animation-duration: 14s;
+}
+
+.planet-red {
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(circle at 30% 30%, #ffb3b3, #8f1e1e);
+  top: 60%;
+  left: 75%;
+  animation-duration: 18s;
+}
+
+.planet-grey {
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle at 30% 30%, #ddd, #555);
+  top: 35%;
+  left: 55%;
+  animation-duration: 22s;
+}
+
+@keyframes floatPlanet {
+  50% { transform: translateY(-15px); }
+}
+
+/* ================= LAYOUT ================= */
+header {
+  text-align: center;
+  padding: 20px;
+  font-size: 2rem;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+nav button {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--accent);
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+nav button:hover {
+  background: var(--accent);
+  color: #000;
+}
+
+.tab {
+  display: none;
+  padding: 20px;
+}
+
+.tab.active {
+  display: block;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 15px;
+}
+
+.card {
+  background: var(--panel);
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.card img {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #000;
+}
+
+.sound-btn {
+  background: var(--accent);
+  color: #000;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+/* ================= CONES ================= */
+.cones {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.cone {
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 40px solid;
+}
+
+.brown { border-bottom-color: #8b5a2b; }
+.blue { border-bottom-color: #3498db; }
+.red { border-bottom-color: #e74c3c; }
+.grey { border-bottom-color: #95a5a6; }
+
+/* ================= PANIC FREEZE ================= */
+.panic-freeze * {
+  animation-play-state: paused !important;
+}
+</style>
+</head>
+
+<body>
+
+<div id="space">
+  <div class="nebula"></div>
+  <div class="planet planet-blue" data-depth="0.06"></div>
+  <div class="planet planet-red" data-depth="0.04"></div>
+  <div class="planet planet-grey" data-depth="0.02"></div>
+  <div class="stars"></div>
+  <div class="stars2"></div>
+  <div class="stars3"></div>
+</div>
+
+<header>Mando</header>
+
+<nav>
+  <button onclick="showTab('soundboard')">Soundboard</button>
+  <button onclick="showTab('apps')">Apps</button>
+  <button onclick="showTab('games')">Games</button>
+  <button onclick="panic()">p4nic</button>
+</nav>
+
+<div id="soundboard" class="tab active">
+  <div class="grid">
+    <!-- 20 SOUND SLOTS -->
+    <script>
+      for (let i = 1; i <= 20; i++) {
+        document.write(`<div class="card sound-btn">Sound ${i}</div>`);
+      }
+    </script>
+  </div>
+</div>
+
+<div id="apps" class="tab">
+  <div class="grid">
+    <script>
+      for (let i = 1; i <= 6; i++) {
+        document.write(`
+          <div class="card" data-url="">
+            <img src="">
+            <span>App ${i}</span>
+          </div>
+        `);
+      }
+    </script>
+  </div>
+</div>
+
+<div id="games" class="tab">
+  <div class="grid">
+    <script>
+      for (let i = 1; i <= 50; i++) {
+        document.write(`
+          <div class="card" data-url="">
+            <img src="">
+            <span>Game ${i}</span>
+          </div>
+        `);
+      }
+    </script>
+  </div>
+</div>
+
+<div class="cones">
+  <div class="cone brown"></div>
+  <div class="cone blue"></div>
+  <div class="cone red"></div>
+  <div class="cone grey"></div>
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+let panicState = false;
+function panic() {
+  panicState = !panicState;
+  showTab(panicState ? 'games' : 'soundboard');
+  document.body.classList.toggle('panic-freeze', panicState);
+}
+
+/* CARD LINKS */
+document.addEventListener('click', e => {
+  const card = e.target.closest('.card');
+  if (card && card.dataset.url) {
+    const url = card.dataset.url.trim();
+    if (url) window.open(url, '_blank');
+  }
+});
+
+/* PARALLAX */
+const planets = document.querySelectorAll('.planet');
+document.addEventListener('mousemove', e => {
+  if (document.body.classList.contains('panic-freeze')) return;
+
+  const x = (e.clientX / innerWidth) - 0.5;
+  const y = (e.clientY / innerHeight) - 0.5;
+
+  planets.forEach(p => {
+    const d = parseFloat(p.dataset.depth);
+    p.style.transform = `translate(${x * d * 100}px, ${y * d * 100}px)`;
+  });
+});
+</script>
+
+</body>
+</html>
+
