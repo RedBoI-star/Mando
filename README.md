@@ -1,2 +1,2 @@
-# Mando
-Mando website
+# Mando project
+Mando project
